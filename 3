@@ -1,0 +1,26 @@
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+iris = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
+attributes = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
+for attribute in attributes:
+        print(f"Count of {attribute}:")
+    print(iris[attribute].value_counts())
+    print()
+ mean, std = iris[attribute].mean(), iris[attribute].std()
+    print(f"Mean and SD of {attribute}: {mean:.2f}, {std:.2f}")
+    x = np.linspace(mean - 3*std, mean + 3*std, 100)
+    y = norm.pdf(x, mean, std)
+    plt.plot(x, y)
+    plt.title(f"Normal Distribution of {attribute}")
+    plt.xlabel(attribute)
+    plt.ylabel("Probability Density")
+    plt.show()
+ plt.title(f"Histogram of {attribute}")
+    plt.xlabel(attribute)
+    plt.ylabel("Frequency")
+    plt.hist(iris[attribute], bins=20, edgecolor='black')
+    plt.show()
+    print()
